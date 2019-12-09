@@ -2,7 +2,9 @@ package ejercicioshbm.ej4;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -30,11 +32,18 @@ public class Lanzador {
 		profesor1.setApe2("Sanchez");
 		profesor1.setDireccion(direccion);
 		
+		Correo correo1 = new Correo();
+		correo1.setDireccion("algo@algo.com");
+		correo1.setProveedor("gmail.com");
+		List<Correo> correos = new ArrayList<>();
+		correos.add(correo1);
+		
 		Profesor profesor2 = new Profesor();
 		profesor2.setNombre("Luis");
 		profesor2.setApe1("Izquierdo");
 		profesor2.setApe2("Lopez");
 		profesor2.setDireccion(direccion);
+		profesor2.setCorreos(correos);
 		
 		System.out.println("\nProbando inserción de profesores");
 		probarInsercion(factory, profesor1);

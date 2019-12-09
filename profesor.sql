@@ -34,7 +34,7 @@ create table Profesor (
     
 create table Correo (
     Id integer not null AUTO_INCREMENT,
-    profesor_id integer not null,
+    profesor_id integer,
     direccion VARCHAR(50) DEFAULT NULL,
     proveedor VARCHAR(50) DEFAULT NULL,
     PRIMARY KEY (`id`),

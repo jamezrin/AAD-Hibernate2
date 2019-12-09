@@ -2,6 +2,8 @@ package ejercicioshbm.ej4;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "Profesor", catalog = "profesor")
@@ -23,16 +28,18 @@ public class Profesor implements java.io.Serializable {
 	private String ape2;
 	private Direccion direccion;
 	private Modulo modulo;
+	private List<Correo> correos;
 
 	public Profesor() {
 	}
 
-	public Profesor(String nombre, String ape1, String ape2, Direccion direccion, Modulo modulo) {
+	public Profesor(String nombre, String ape1, String ape2, Direccion direccion, Modulo modulo, List<Correo> correos) {
 		this.nombre = nombre;
 		this.ape1 = ape1;
 		this.ape2 = ape2;
 		this.direccion = direccion;
 		this.modulo = modulo;
+		this.correos = correos;
 	}
 
 	@Id
@@ -94,9 +101,18 @@ public class Profesor implements java.io.Serializable {
 		this.modulo = modulo;
 	}
 
+	@OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+	public List<Correo> getCorreos() {
+		return correos;
+	}
+
+	public void setCorreos(List<Correo> correos) {
+		this.correos = correos;
+	}
+
 	@Override
 	public String toString() {
 		return "Profesor [id=" + id + ", nombre=" + nombre + ", ape1=" + ape1 + ", ape2=" + ape2 + ", direccion="
-				+ direccion + "]";
+				+ direccion + ", modulo=" + modulo + ", correos=" + correos + "]";
 	}
 }

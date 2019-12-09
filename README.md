@@ -5,6 +5,4 @@ Ejercicio 3:
 ALTER TABLE Profesor ADD COLUMN direccion_id INTEGER;
 ```
 
-Ejercicio 4 en adelante:
-
-No he podido hacerlos porque no existe nada en profesor.sql que indique los campos de Modulo y Correo.
+A partir del ejercicio 4 todo va en el mismo paquete, el del ejercicio 4.
