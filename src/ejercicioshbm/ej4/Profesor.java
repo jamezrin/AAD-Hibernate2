@@ -81,6 +81,14 @@ public class Profesor implements java.io.Serializable {
 		this.direccion = direccion;
 	}
 
+	public Modulo getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
+	}
+
 	@Override
 	public String toString() {
 		return "Profesor [id=" + id + ", nombre=" + nombre + ", ape1=" + ape1 + ", ape2=" + ape2 + ", direccion="
