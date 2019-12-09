@@ -1,6 +1,9 @@
 package ejercicioshbm.ej4;
 
 import java.io.File;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,8 +14,8 @@ import ejercicioshbm.SessionFactoryUtil;
 
 public class Lanzador {
 	public static void main(String[] args) {
-		System.out.println("Ejercicio 3.1");
-		File cfgPath = new File("resources/ej3_1/hibernate.cfg.xml");
+		System.out.println("Ejercicio 4");
+		File cfgPath = new File("resources/ej4/hibernate.cfg.xml");
 		SessionFactory factory = SessionFactoryUtil.initSessionFactory(cfgPath);
 		
 		Direccion direccion = new Direccion();
@@ -21,25 +24,47 @@ public class Lanzador {
 		direccion.setPoblacion("Madrid");
 		direccion.setProvincia("Madrid");
 		
-		Profesor profesor = new Profesor();
-		profesor.setNombre("Carlos");
-		profesor.setApe1("Gonzalez");
-		profesor.setApe2("Sanchez");
-		profesor.setDireccion(direccion);
+		Profesor profesor1 = new Profesor();
+		profesor1.setNombre("Carlos");
+		profesor1.setApe1("Gonzalez");
+		profesor1.setApe2("Sanchez");
+		profesor1.setDireccion(direccion);
 		
-		System.out.println("\nProbando inserción");
-		probarInsercion(factory, profesor);
+		Profesor profesor2 = new Profesor();
+		profesor2.setNombre("Luis");
+		profesor2.setApe1("Izquierdo");
+		profesor2.setApe2("Lopez");
+		profesor2.setDireccion(direccion);
 		
-		System.out.println("\nProbando lectura");
-		probarLectura(factory, profesor.getId());
+		System.out.println("\nProbando inserción de profesores");
+		probarInsercion(factory, profesor1);
+		probarInsercion(factory, profesor2);
+		
+		Modulo modulo = new Modulo();
+		modulo.setCreditos(10f);
+		modulo.setNombre("Programación");
+		Set<Profesor> profesores = new HashSet<>();
+		profesores.add(profesor1);
+		profesores.add(profesor2);
+		modulo.setProfesores(profesores);
+		
+		System.out.println("\nProbando lectura de profesores");
+		probarLectura(factory, profesor1.getId(), Profesor.class);
+		probarLectura(factory, profesor2.getId(), Profesor.class);
+		
+		System.out.println("\nProbando inserción de un modulo");
+		probarInsercion(factory, modulo);
+		
+		System.out.println("\nProbando lectura de modulo");
+		probarLectura(factory, modulo.getId(), Modulo.class);
 	}
 	
-	private static void probarInsercion(SessionFactory factory, Profesor profesor) {
+	private static void probarInsercion(SessionFactory factory, Serializable serializable) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.save(profesor);
+			session.save(serializable);
 			tx.commit();
 			System.out.println("Inserción correcta");
 		} catch (ConstraintViolationException e) {
@@ -53,10 +78,10 @@ public class Lanzador {
 		session.close();
 	}
 	
-	private static void probarLectura(SessionFactory factory, int id) {
+	private static void probarLectura(SessionFactory factory, int id, Class<?> clazz) {
 		Session session = factory.openSession();
-		Profesor profesor = session.load(Profesor.class, id);
-		System.out.printf("Lectura correcta, objeto: %s\n", profesor);
+		Object object = session.load(clazz, id);
+		System.out.printf("Lectura correcta, objeto: %s\n", object);
 		session.close();
 	}
 }

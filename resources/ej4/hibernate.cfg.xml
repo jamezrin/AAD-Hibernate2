@@ -10,6 +10,7 @@
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <mapping class="ejercicioshbm.ej4.Direccion"/>
   <mapping class="ejercicioshbm.ej4.Profesor"/>
+  <mapping class="ejercicioshbm.ej4.Correo"/>
   <mapping class="ejercicioshbm.ej4.Modulo"/>
  </session-factory>
 </hibernate-configuration>

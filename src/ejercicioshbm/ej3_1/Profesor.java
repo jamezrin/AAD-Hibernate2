@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -72,6 +73,7 @@ public class Profesor implements java.io.Serializable {
 	}
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "direccion_id")
 	public Direccion getDireccion() {
 		return direccion;
 	}

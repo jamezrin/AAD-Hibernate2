@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Correo", catalog = "correo")
+@Table(name = "Correo", catalog = "profesor")
 public class Correo implements Serializable {
 	private Integer id;
 	private String direccion;
